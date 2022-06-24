@@ -8,10 +8,7 @@ const handleSubmit = (e) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams(formData).toString(),
   })
-    .then(
-      () => formData.querySelector(".sent-message").classList.add("d-block"),
-      formData.reset()
-    )
+    .then(() => form.reset(), document.alert("help"))
     .catch((error) => alert(error));
 };
 

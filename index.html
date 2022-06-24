@@ -724,6 +724,7 @@
             <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
               <form
                 class="contact-form php-email-form"
+                method="POST" data-netlify="true"
                 netlify
               >
                 <div class="row">
@@ -838,12 +839,21 @@
     <script src="assets/vendor/typed.js/typed.min.js"></script>
     <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
     <script>
-      const form = document.getElementsByClassName('php-email-form');
-      console.log(form[0])
-      form[0].addEventListener("submit", function(event) {
-    event.preventDefault()
-    console.log(event.target)
-  });
+      const forms = document.getElementsByClassName('php-email-form');
+      const form = forms[0];
+      const handleSubmit = (e) => {
+      e.preventDefault();
+      let formData = new FormData(form);
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString(),
+  })
+    .then(() => console.log("Form successfully submitted"))
+    .catch((error) => alert(error));
+};
+
+form.addEventListener('submit',handleSubmit)
     </script>
 
     <!-- Template Main JS File -->
